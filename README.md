@@ -1,4 +1,4 @@
-# Time Series Segmentation in VBA
+# Time Series Segmentation in VBA and Excel
 
 When I was working as an equity strategist, a question that I got asked a lot was "_The market is up by 20% now! Can you tell me how many times in the past did this happen? And what sectors outperformed in those cycles? Thanks!_", sigh. Maybe I am being judgemental, but people who ask these questions are either not very smart, or maybe they are too smart that they see things that I don't.
 
@@ -43,13 +43,13 @@ Loop
 Output segment
 ```
 
-Another twist that can be added to the mix is that in some cases, we prefer to merge segments that have slopes in the same direction, over merging slopes with opposite signs. This is because a change in sign of slopes indicates turning point, which is often of particular interest. So we may add a penalty cost to discourage merging segments with opposite slopes.
+Another twist that can be added to the mix is that in some cases, we prefer to merge segments that have slopes in the same direction, over merging slopes with opposite signs. This is because a change in sign of slopes indicates a turning point, which is often of particular interest. So we may add a penalty cost to discourage merging segments with opposite slopes.
 
-To test the code, I ran it on the log level of Hang Seng Index as mentioned above. The whole series has 1,993 data points. It's run with the code to approximate it usng 100, 50 and 25 segments, with and without the addition of sign penalty. One can see that although the original series contain almost 2,000 data points, using only 50 or even 25 segments (~97% compression rate) to approximate it already captures most of the essence of its trend. This is because the sampling points are not randomly selected, but systematically chosen to strategically capture linear-like segments.
+To test the code, I ran it on the log level of Hang Seng Index as mentioned above. The whole series has 1,993 data points. It's run with the code to approximate it usng 100, 50 and 25 segments, with and without the addition of sign penalty. One can see that although the original series contains almost 2,000 data points, using only 50 or even 25 segments (~97% compression rate) to approximate it already captures most of its essence. This is because the sampling points are not randomly selected, but systematically chosen to strategically capture linear-like segments and turning points between segments.
 
 ![TestResults](Screenshots/results01.jpg)
 
-If the purpose of this appoximation is to perform futher operations like time series indexing and clustering, then more rigorous tests are needed to evalulate its performance. But for our purpose, we simply want to use it to tell a story  of what had happened in the past. So the quality that we look for is its aesthetics. If it looks good and tells the story we want to tell, it's plenty good. And if it's not, we can always tune the parameters until it fits our need. And making manual adjustments from here is also much more efficient than doing everything by hand. With a little excel skills, we could also easily translate the charts into tables like this, just an alternative way to tell the story, which is easier if you need to do some stats on it.
+If the purpose of this appoximation is to perform futher operations like time series indexing and clustering, then more rigorous tests are needed to evalulate its performance. But for our purpose, we simply want to use it to tell a story  of what had happened in the past. So the quality that we look for is its aesthetics. If it looks good and tells the story we want to tell, it's plenty good. And if it's not, we can always tune the parameters until it fits our need. And making manual adjustments from here is also much more efficient than doing everything by hand. With a little excel skills, we can also easily translate the charts into tables like this, just an alternative way to tell the story, which is easier if you need to do some stats on it.
 
 ![TestResults2](Screenshots/results02.jpg)
 
@@ -61,7 +61,7 @@ It's worth pointing out that when creating a linear approximation for a segment,
 
 ![INTERPOLvREGRESSION](Screenshots/example03.jpg)
 
-Interpolation is simply joining the end points of a segment, while Regression do that with a simple least square fit. They are implemented in the codes with argument `fitType` which can take the value INTERPOL or REGRESSION. Note that the codes only output the indices of segment startiing points, so even when Regression is used, one can still use the actual data points to make a chart. Since the main purpose here is for visualisation, this is ideal since no gaps will be seen between segments. The effect of choosing Regression vs Interpolation is implicit in the calculation of SSE and cost functions.
+Interpolation is simply joining the end points of a segment, while Regression do that with a simple least square fit. They are implemented in the codes with argument `fitType` which can take the value INTERPOL or REGRESSION. Note that the codes only output indices of segment starting points, so even when Regression is used, one can still use the actual data points to make a chart. Since the main purpose here is for visualisation, this is ideal since no gaps will be seen between segments. The effect of choosing Regression vs Interpolation is implicit in the calculation of SSE and cost functions.
 
 References:
 1. Eamonn Keogh et al., "Segmenting Time SeriesL A Survey and Novel Approach", Data mining in time series databases 57 (2004): 1-22
