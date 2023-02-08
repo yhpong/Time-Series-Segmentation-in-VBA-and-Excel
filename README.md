@@ -55,7 +55,7 @@ If the purpose of this appoximation is to perform futher operations like time se
 
 As mentioned in the beginning, how we want the segmentations to come out is totally subjective, this algorithm simply provides a parametric way to do it systematically, so it becomes reproducible and also less of a chore.
 
-The codes and examples used can be found [here](TS_Segmentation.xlsm). The module containing the main function is here.
+The codes and examples used can be found [here](TS_Segmentation.xlsm). The module containing the main function is [here](mTSSeg.bas).
 
 It's worth pointing out that when creating a linear approximation for a segment, there are two ways to do it: Interpolation and Regression, as illustrated below:
 
