@@ -55,7 +55,13 @@ If the purpose of this appoximation is to perform futher operations like time se
 
 As mentioned in the beginning, how we want the segmentations to come out is totally subjective, this algorithm simply provides a parametric way to do it systematically, so it becomes reproducible and also less of a chore.
 
-The codes and examples used can be found here. The module containing the main function is here.
+The codes and examples used can be found [here](TS_Segmentation.xlsm). The module containing the main function is here.
+
+It's worth pointing out that when creating a linear approximation for a segment, there are two ways to do it: Interpolation and Regression, as illustrated below:
+
+![INTERPOLvREGRESSION](Screenshots/example03.jpg)
+
+Interpolation is simply joining the end points of a segment, while Regression do that with a simple least square fit. They are implemented in the codes with argument `fitType` which can take the value INTERPOL or REGRESSION. Note that the codes only output the indices of segment startiing points, so even when Regression is used, one can still use the actual data points to make a chart. Since the main purpose here is for visualisation, this is ideal since no gaps will be seen between segments. The effect of choosing Regression vs Interpolation is implicit in the calculation of SSE and cost functions.
 
 References:
 1. Eamonn Keogh et al., "Segmenting Time SeriesL A Survey and Novel Approach", Data mining in time series databases 57 (2004): 1-22
