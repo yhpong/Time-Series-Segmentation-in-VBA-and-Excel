@@ -1,4 +1,4 @@
-# Time-Series-Segmentation
+# Time Series Segmentation in VBA
 
 When I was working as an equity strategist, a question that I got asked a lot was "_The market is up by 20% now! Can you tell me how many times in the past did this happen? And what sectors outperformed in those cycles? Thanks!_", sigh. Maybe I am being judgemental, but people who ask these questions are either not very smart, or maybe they are too smart that they see things that I don't.
 
@@ -20,7 +20,6 @@ The main algorithm described here was discussed in Keogh et al (2004)<sup>1</sup
 
 To illustrate the algorithm, look at the figure above. This time series is originially segmented into two lines, Segment1 and Segment2, each with its own SSE. When we merge them into one single segment, the new line has a new SSE, which is typically larger than some of the individal error. So we can say the cost of merging these two segments is the difference between the new SSE and the old SSE's combined. This gives us the building block of the algorithm below:
 
-
 ```
 Algorithm: Linear segmentation of time series with regular intervals
 Input: time series x = {x_1,x_2,...,x_N}
@@ -28,16 +27,17 @@ Output: segment(1:M), integer array pointing to the starting position of each of
 
 Initialize number of segment M = N-1
 Initialize segment = {seg_1,seg_2,...,seg_{N-1}} = {1,2,...,N-1}
-Initialize sse = {$sse_1, sse_2,...,sse_{N-1}$} = {0,0,...,0}
+Initialize sse = {sse_1, sse_2,...,sse_{N-1}} = {0,0,...,0}
 Calculate the cost of merging each consecutive segment and store it in cost = {cost_1, cost_2,...,cost_{N-2}}
 Identify the pair of segments that has the lowest cost of merging: cost_{min}
 
 Do
-	Merge the two segments min and min+1 by reindexing the arrays segment, sse and cost
-	Recalculate SSE of the new segment seg_min
+	Merge the two segments min and min+1 by reindexing the arrays: segment, sse and cost
+	M = M-1
+	Recalculate SSE of the new segment seg_{min}
 	Recalculate the two costs of merging the new segment with the segments before and after it: cost_{min-1} and cost_{min}
-	Identify a new pair of segments that has the lowest marge cost cost_{min}
-	Stop if `cost_{min}` is larger than tolerance or target number of segments is reached
+	Identify a new pair of segments that has the lowest merge cost cost_{min}
+	Break if cost_{min} is larger than tolerance or target number of segments is reached
 Loop
 
 Output segment
@@ -55,7 +55,7 @@ If the purpose of this appoximation is to perform futher operations like time se
 
 As mentioned in the beginning, how we want the segmentations to come out is totally subjective, this algorithm simply provides a parametric way to do it systematically, so it becomes reproducible and also less of a chore.
 
-The codes and examples used can be found here.
+The codes and examples used can be found here. The module containing the main function is here.
 
 References:
 1. Eamonn Keogh et al., "Segmenting Time SeriesL A Survey and Novel Approach", Data mining in time series databases 57 (2004): 1-22
