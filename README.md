@@ -61,7 +61,7 @@ It's worth pointing out that when creating a linear approximation for a segment,
 
 ![INTERPOLvREGRESSION](Screenshots/example03.jpg)
 
-Interpolation is simply joining the end points of a segment, while Regression do that with a simple least square fit. They are implemented in the codes with argument `fitType` which can take on the value INTERPOL or REGRESSION. Note that the code only outputs indices of segment starting points, so even when Regression is used, one can still use the actual data points to make a chart. Since the main purpose here is for visualisation, this is ideal since no gaps will be seen between segments. The effect of choosing Regression vs Interpolation is implicit in the calculation of SSE and cost functions.
+Interpolation is simply joining the end points of a segment, while Regression do that with a simple least square fit. They are implemented in the functions with argument `fitType` which can take on the value INTERPOL or REGRESSION. Note that the code only outputs indices of segment starting points, so even when Regression is used, one can still use the actual data points to make a chart. Since the main purpose here is for visualisation, this is ideal since no gaps will be seen between segments. The effect of choosing Regression vs Interpolation is implicit in the calculation of SSE and cost functions.
 
 References:
-1. Eamonn Keogh et al., "Segmenting Time SeriesL A Survey and Novel Approach", Data mining in time series databases 57 (2004): 1-22
+1. Eamonn Keogh et al., "Segmenting Time Series: A Survey and Novel Approach", Data mining in time series databases 57 (2004): 1-22
